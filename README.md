@@ -16,17 +16,14 @@ pip install -r requirements
 
 ### Datasets
 
-TODO: list the datasets and download instructions
-
 Datasets for table union search:
-* Santos:
-* TUS:
+* Santos: https://zenodo.org/record/7758091
+* TUS: https://github.com/RJMillerLab/table-union-search-benchmark
 
 WDC web tables:
 * See download instructions [here](https://webdatacommons.org/webtables/) for the 50M relational English tables.
 
-Viznet (for column clustering and ML data discovery):
-* TODO
+Viznet: https://github.com/megagonlabs/sato/tree/master/table_data
 
 ### Running the offline pre-training pipeline:
 
