@@ -76,28 +76,28 @@ def check_table_pair(table_a, vectors_a, table_b, vectors_b, method='naive', tar
     target_sim = 0.0
 
     for col_a, vec_a in zip(table_a, vectors_a):
+        norm_vec_a = np.linalg.norm(vec_a)
         if col_a == target:
             if method == 'cl':
                 for col_b, vec_b in zip(table_b, vectors_b):
                     if table_a[col_a].dtype != table_b[col_b].dtype:
                         continue
-                    sim = np.dot(vec_a, vec_b) / np.linalg.norm(vec_a) / np.linalg.norm(vec_b)
+                    sim = np.dot(vec_a, vec_b) / norm_vec_a / np.linalg.norm(vec_b)
                     # if sim > 0:
                     target_sim += sim
             else:
                 continue
-        seta = set(table_a[col_a])
+        seta = set(table_a[col_a].unique())
 
         for col_b, vec_b in zip(table_b, vectors_b):
             if table_a[col_a].dtype != table_b[col_b].dtype:
                 continue
-            setb = set(table_b[col_b])
+            setb = set(table_b[col_b].unique())
             if method == 'jaccard':
                 score = len(seta.intersection(setb)) / len(seta.union(setb))
             elif method == 'cl':
                 overlap = len(seta.intersection(setb)) # / len(seta.union(setb))
-                # score = float(overlap >= 10) * np.dot(vec_a, vec_b) / np.linalg.norm(vec_a) / np.linalg.norm(vec_b)
-                score = float(overlap) * (1.0 + np.dot(vec_a, vec_b) / np.linalg.norm(vec_a) / np.linalg.norm(vec_b))
+                score = float(overlap) * (1.0 + np.dot(vec_a, vec_b) / norm_vec_a / np.linalg.norm(vec_b))
             elif method == 'overlap':
                 score = len(seta.intersection(setb)) / len(seta)
             else:
